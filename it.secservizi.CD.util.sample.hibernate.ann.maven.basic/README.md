@@ -1,3 +1,14 @@
+# README
+
+## Descrizione
+
+Hibernate minimale con annotations generate da JBoss tools
+
+## Posizioni notevoli
+
+Organizzazione di tipo MAVEN
+
+
 # Maven: progetto esempio
 Progetto di partenza [Maven 3 + Hibernate 3.6 + Oracle 11g Example (XML Mapping)](https://www.mkyong.com/hibernate/maven-3-hibernate-3-6-oracle-11g-example-xml-mapping/)
 con varie modifiche in corso d'opera
@@ -56,6 +67,11 @@ Per aggiornare il progetto su Eclipse:
 Nota: si devono vedere anche le Maven Dependencies cambiare
 Nota: eventualmenta fare clean del progetto e tasto destro sul POM > Run As.. > Maven Clean
 
+## Maven : run
+
+Tasto destro sul progetto o su pom.xml > run as... > maven build... > valorizzare su Goals in base a 
+quanto previsto dal lifecycle [link](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+
 ## Maven : pom.xml
 esempio:
 ```xml
@@ -63,12 +79,12 @@ esempio:
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.secservizi.CD.util.sample</groupId>
-  <artifactId>it.secservizi.CD.util.sample.hibmaven</artifactId>
+  <groupId>it.secservizi.CD.util.sample.hibernate.basic</groupId>
+  <artifactId>it.secservizi.CD.util.sample.hibernate.ann.maven.basic</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>it.secservizi.CD.util.sample.hibmaven</name>
+  <name>it.secservizi.CD.util.sample.hibernate.ann.maven.basic</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -135,6 +151,7 @@ esempio:
 	</build>
   
 </project>
+
 ```
 
 ## Maven : creare build.xml ANT da MAVEN
@@ -416,7 +433,7 @@ JBoss Tools - jar:file:/C:/SOFTWARE/UPDATE-SITE/jbosstools-4.3.0.Final-updatesit
 Per scaricare update site di JBoss Tools usare 
 https://tools.jboss.org/downloads/overview.html
 
-## Hibernate: nuova configurazione
+## Hibernate: hibernate configuration
 Window > Perspective > Hibernate
 
 Su Hibernate Configuration aggiungerne una nuova con:
@@ -424,6 +441,15 @@ Su Hibernate Configuration aggiungerne una nuova con:
 - Database Connection: selezionare oracle > SID: XE, Connection URL: jdbc:oracle:thin:@localhost:1521:XE, Host: localhost, Port number: 1521, User Name: STEFANO, password: STEFANO_01, Catalog : User 
 - Project : selezionare il progetto eclipse corrente p.e. it.secservizi.CD.util.sample.hibmaven
 - configuration file: usare quello definito manualmente \it.secservizi.CD.util.sample.hibmaven\src\main\resources\hibernate.cfg.xml
+
+## Hibernate: hibernate code generation configuration
+Window > Perspective > Hibernate
+
+Su barra con icone vicino a run trovare hibernate code generation configurations...
+- su console configuration selezionare la hibernate configuration del punto precedente
+- su output directory selezionare la cartella "target" del progetto corrente
+- sul tab exporter selezionare: Generate EJB3 annotations, Domain code, Hibernate xml mapping, DAO code
+- sul tab common impostare su share file la directory del progetto stesso per salvare la configuration su un file
 
 ## Hibernate: reverse engineering
 Dalla vista Hibernate Configuration navigare fino a > hibernate > Database > \<default\> > DBUSER (esempio)
@@ -469,171 +495,3 @@ mvn eclipse:eclipse
 Il progetto risultante va importato in Eclipse.
 
 
-#Oracle
-
-## Oracle: SQLPlus connessione
-
-Open - Oracle - SQLPlus XE (Express) - connessione a Oracle locale dopo aver fatto partire SQLPLUS
-```
-conn STEFANO/STEFANO_01@localhost:1521
-```
-
-NOTA:E' possibile usare SQLPLUS della versione express anche per connettersi ai database SEC ufficiali
-Esempio:
-```
-C:\Documents and Settings\Stefano_Antoniazzi>sqlplus UORA178X/default_pwd01!@10.16.26.243:1566/PRDB07
-```
-Riferimento:
-[Sqlplus connect](http://psoug.org/snippet/SQLPlus-connect_709.htm)
-
-## Oracle : vedere le tabelle associate all'utente corrente
-```
-SQL> select TABLE_NAME, TABLESPACE_NAME from user_tables;
-```
-```
-TABLE_NAME                     TABLESPACE_NAME
------------------------------- ------------------------------
-EMPLOYEES                      TSSTEFANO
-EVENTS                         TSSTEFANO
-PERSONS                        TSSTEFANO
-PERSON_EVENT                   TSSTEFANO
-TCD_APPLICAZIONI               TSSTEFANO
-TCD_AMBIENTI                   TSSTEFANO
-TCD_INFRASTRUTTURA             TSSTEFANO
-```
-
-## Oracle: vedere la DDL di una certa tabella
-Esempio: tabella STEFANO.DBUSER
-```
-select dbms_metadata.get_ddl('TABLE','DBUSER','STEFANO') from dual;
-```
-## Oracle: SQLPlus creazione tabelle di prova
-### Connessione
-```
-Oracle XE Locale
-SYSTEM pwd SYS_01
-STEFANO pwd STEFANO_01 
-```
-### Utente
-utente definito da
-Run SQL Command Line:
-```
-SQL> create user STEFANO identified by STEFANO_01;
-```
-### Grant
-```
-SQL> grant CREATE SESSION, ALTER SESSION, CREATE DATABASE LINK, -
-  CREATE MATERIALIZED VIEW, CREATE PROCEDURE, CREATE PUBLIC SYNONYM, -
-  CREATE ROLE, CREATE SEQUENCE, CREATE SYNONYM, CREATE TABLE, - 
-  CREATE TRIGGER, CREATE TYPE, CREATE VIEW, UNLIMITED TABLESPACE -
-  to chris;
-```
-### Tablespace
-```
-user SYSTEM:
-CREATE TABLESPACE TSSTEFANO DATAFILE 'tbs_stefano.dbf' SIZE 40M     ONLINE;
-
-user SYSTEM:
-ALTER USER STEFANO default tablespace TSSTEFANO quota unlimited on TSSTEFANO;
-```
-### Tabelle
-```
-user STEFANO:
-CREATE TABLE "STEFANO"."EVENTS" 
-   (	
-    "EVENT_ID" NUMBER(19) NOT NULL, 
-	"EVENT_DATE" TIMESTAMP NOT NULL, 
-	"EVENT_TITLE" VARCHAR2(50 BYTE) NOT NULL,
-     CONSTRAINT EVENT_PK PRIMARY KEY("EVENT_ID")
-); 
-
-user STEFANO:
-CREATE TABLE "STEFANO"."PERSONS" 
-   (	
-    "PERSON_ID" NUMBER(19) NOT NULL, 
-	"PERSON_AGE" NUMBER(3) NOT NULL, 
-	"PERSON_FIRSTNAME" VARCHAR2(50 BYTE) NOT NULL,
-	"PERSON_LASTNAME" VARCHAR2(50 BYTE) NOT NULL,
-     CONSTRAINT PERSON_PK PRIMARY KEY("PERSON_ID")
-); 
-
-user STEFANO:
-CREATE TABLE "STEFANO"."PERSON_EVENT"
-	(
-		"EVENT_ID"	NUMBER(19) NOT NULL, 
-		"PERSON_ID" NUMBER(19) NOT NULL, 
-		CONSTRAINT PERSON_EVENT_PK PRIMARY KEY(EVENT_ID, PERSON_ID),
-		CONSTRAINT PERSON_EVENT_FK1 FOREIGN KEY(EVENT_ID) REFERENCES EVENTS(EVENT_ID),
-	    CONSTRAINT PERSON_EVENT_FK2 FOREIGN KEY(PERSON_ID) REFERENCES PERSONS(PERSON_ID)
-);		
-```
-### Dati
-```
-user STEFANO:
-INSERT ALL		
- INTO STEFANO.EVENTS(EVENT_ID,EVENT_DATE,EVENT_TITLE)  VALUES (1,current_timestamp,'Evento 1')
-SELECT * FROM dual
-
-INSERT ALL		
- INTO STEFANO.PERSONS(PERSON_ID,PERSON_AGE,PERSON_FIRSTNAME,PERSON_LASTNAME)  VALUES (1,45,'Stefano','Antoniazzi')
-SELECT * FROM dual
-
-INSERT ALL		
- INTO STEFANO.PERSON_EVENT(EVENT_ID, PERSON_ID)  VALUES (1,1)
-SELECT * FROM dual
-```
-
-## Oracle: SQLPlus vedere tutte le configurazioni
-
-show all
-
-## Oracle: risultato su spool e settare lunghezza riga
-Inviare output di una select su file
-```
-set linesize 2000
-spool C:\tmp\test.txt
-select * from all_tables;
-spool off
-```
-
-
-## Oracle: SQLPlus vedere errori di una PROC
-
-CREATE PROCEDURE test1 IS
-BEGIN
-  ifasdfn;
-END;
-/
- ```
-show errors
-```
-risponde con
-```
-Errors for PROCEDURE TEST1:
-
-LINE/COL,ERROR
---------,--------------------------------------------------
-3/1     ,PL/SQL: Statement ignored
-3/1     ,PLS-00201: identifier 'IFASDFN' must be declared
-```
-
-## Oracle: dati in HTML
-
-Esempio per scrivere su HTML su Oracle Express (XE) :
-sqlplus
- ```
-connect / as SYSDBA
-
-set pages 0 
-set markup html on
-spool on 
-spool D:\SampleReport.html 
-select table_name from all_tables; 
-spool off 
-exit
-```
-
-## Oracle: SQLPlus vedere tempo impiegato da una query
-```
-set timing on
-```

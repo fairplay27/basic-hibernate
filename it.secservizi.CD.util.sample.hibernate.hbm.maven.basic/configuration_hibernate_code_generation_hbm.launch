@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.hibernate.eclipse.launch.CodeGenerationLaunchConfigurationType">
-<stringAttribute key="org.hibernate.tools.configurationname" value="hibernate"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.hibernate.eclipse.launch.ConsoleConfigurationLaunchGroup"/>
+<listEntry value="org.hibernate.eclipse.launch.CodeGenerationLaunchGroup"/>
+</listAttribute>
+<stringAttribute key="org.hibernate.tools.configurationname" value="hibernate-hbm"/>
 <booleanAttribute key="org.hibernate.tools.ejb3" value="true"/>
 <listAttribute key="org.hibernate.tools.exporters">
 <listEntry value="org.hibernate.tools.hbm2java"/>
@@ -29,13 +33,13 @@
 <booleanAttribute key="org.hibernate.tools.exporters.org.hibernate.tools.query" value="false"/>
 <stringAttribute key="org.hibernate.tools.exporters.org.hibernate.tools.query.extension_id" value="org.hibernate.tools.query"/>
 <booleanAttribute key="org.hibernate.tools.jdk5" value="false"/>
-<stringAttribute key="org.hibernate.tools.outputdir" value="\it.secservizi.CD.util.sample.hibmaven\target"/>
+<stringAttribute key="org.hibernate.tools.outputdir" value="\it.secservizi.CD.util.sample.hibernate.hbm.maven.basic\target"/>
 <stringAttribute key="org.hibernate.tools.package" value=""/>
 <booleanAttribute key="org.hibernate.tools.prefercompositeids" value="true"/>
 <booleanAttribute key="org.hibernate.tools.reveng.detect_many_to_many" value="true"/>
 <booleanAttribute key="org.hibernate.tools.reveng.detect_one_to_one" value="true"/>
 <booleanAttribute key="org.hibernate.tools.reveng.detect_optimistc_lock" value="true"/>
-<booleanAttribute key="org.hibernate.tools.schema2hbm" value="true"/>
+<booleanAttribute key="org.hibernate.tools.schema2hbm" value="false"/>
 <booleanAttribute key="org.hibernate.tools.useExternalProcess" value="false"/>
 <booleanAttribute key="org.hibernate.tools.useOwnTemplates" value="false"/>
 </launchConfiguration>

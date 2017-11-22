@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.secservizi.CD.util.sample</groupId>
-  <artifactId>it.secservizi.CD.util.sample.hibmaven</artifactId>
+  <groupId>it.secservizi.CD.util.sample.hibernate.basic</groupId>
+  <artifactId>it.secservizi.CD.util.sample.hibernate.ann.maven.basic</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>it.secservizi.CD.util.sample.hibmaven</name>
+  <name>it.secservizi.CD.util.sample.hibernate.ann.maven.basic</name>
   <url>http://maven.apache.org</url>
 
   <properties>
