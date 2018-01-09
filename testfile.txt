@@ -1,3 +1,4 @@
 Sample test file content
 Row inserted from web interface
 Another inserted row directly from github web interface
+riga conflittuale aggiunta da web
